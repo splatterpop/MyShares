@@ -1,0 +1,62 @@
+ .../WindowPlugins/GUIPictures/GUIPictures.cs       |   13 +++++++------
+ 1 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/mediaportal/WindowPlugins/GUIPictures/GUIPictures.cs b/mediaportal/WindowPlugins/GUIPictures/GUIPictures.cs
+index 96aef4c..8ed93ad 100644
+--- a/mediaportal/WindowPlugins/GUIPictures/GUIPictures.cs
++++ b/mediaportal/WindowPlugins/GUIPictures/GUIPictures.cs
+@@ -302,7 +302,7 @@ namespace MediaPortal.GUI.Pictures
+     private string currentFolder = string.Empty;
+     private string m_strDirectoryStart = string.Empty;
+     private string destinationFolder = string.Empty;
+-    private VirtualDirectory virtualDirectory = new VirtualDirectory();
++    private VirtualDirectory virtualDirectory = VirtualDirectories.Instance.Pictures; // new VirtualDirectory();
+     private MapSettings mapSettings = new MapSettings();
+     private bool isFileMenuEnabled = false;
+     private string fileMenuPinCode = string.Empty;
+@@ -339,7 +339,7 @@ namespace MediaPortal.GUI.Pictures
+         isFileMenuEnabled = xmlreader.GetValueAsBool("filemenu", "enabled", true);
+         fileMenuPinCode = Util.Utils.DecryptPin(xmlreader.GetValueAsString("filemenu", "pincode", string.Empty));
+         string strDefault = xmlreader.GetValueAsString("pictures", "default", string.Empty);
+-        virtualDirectory.Clear();
++/*        virtualDirectory.Clear();
+         for (int i = 0; i < VirtualDirectory.MaxSharesCount; i++)
+         {
+           string shareName = String.Format("sharename{0}", i);
+@@ -401,7 +401,8 @@ namespace MediaPortal.GUI.Pictures
+           {
+             break;
+           }
+-        }
++        } */
++
+         if (xmlreader.GetValueAsBool("pictures", "rememberlastfolder", false))
+         {
+           string lastFolder = xmlreader.GetValueAsString("pictures", "lastfolder", currentFolder);
+@@ -412,7 +413,7 @@ namespace MediaPortal.GUI.Pictures
+           disp = (Display)xmlreader.GetValueAsInt("pictures", "lastview", (int)disp);
+         }
+         _switchRemovableDrives = xmlreader.GetValueAsBool("pictures", "SwitchRemovableDrives", true);
+-        //_hideExtensions = xmlreader.GetValueAsBool("gui", "hideextensions", true);
++        virtualDirectory.SetExtensions(Util.Utils.PictureExtensions);
+       }
+ 
+       if (currentFolder.Length > 0 && currentFolder == m_strDirectoryStart)
+@@ -449,7 +450,7 @@ namespace MediaPortal.GUI.Pictures
+     {
+       base.OnAdded();
+       virtualDirectory.AddDrives();
+-      virtualDirectory.SetExtensions(Util.Utils.PictureExtensions);
++      //virtualDirectory.SetExtensions(Util.Utils.PictureExtensions);
+       currentFolder = string.Empty;
+       destinationFolder = string.Empty;
+       thumbCreationPaths.Clear();
+@@ -514,7 +515,7 @@ namespace MediaPortal.GUI.Pictures
+     {
+       if (!KeepVirtualDirectory(PreviousWindowId))
+       {
+-        virtualDirectory.Reset();
++        // virtualDirectory.Reset();
+       }
+       base.OnPageLoad();
+       GUITextureManager.CleanupThumbs();

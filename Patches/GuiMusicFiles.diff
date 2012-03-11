@@ -1,0 +1,30 @@
+diff --git "a/C:\\DOKUME~1\\LUTZ~1.LUT\\LOKALE~1\\Temp\\GUI32B.tmp\\GUIMusicFiles-b01665-left.cs" "b/C:\\DOKUME~1\\LUTZ~1.LUT\\LOKALE~1\\Temp\\GUI32A.tmp\\GUIMusicFiles-b323fd-right.cs"
+index 0a2fb95..2c3150a 100644
+--- "a/C:\\DOKUME~1\\LUTZ~1.LUT\\LOKALE~1\\Temp\\GUI32B.tmp\\GUIMusicFiles-b01665-left.cs"
++++ "b/C:\\DOKUME~1\\LUTZ~1.LUT\\LOKALE~1\\Temp\\GUI32A.tmp\\GUIMusicFiles-b323fd-right.cs"
+@@ -130,7 +130,7 @@ namespace MediaPortal.GUI.Music
+     private MapSettings _mapSettings = new MapSettings();
+     private DirectoryHistory _dirHistory = new DirectoryHistory();
+     private GUIListItem _selectedListItem = null;
+-    private VirtualDirectory _virtualDirectory = new VirtualDirectory();
++    private VirtualDirectory _virtualDirectory = VirtualDirectories.Instance.Music; // new VirtualDirectory();
+ 
+     private int _selectedAlbum = -1;
+     private int _selectedItem = -1;
+@@ -237,7 +237,7 @@ namespace MediaPortal.GUI.Music
+         _fileMenuPinCode = Util.Utils.DecryptPin(xmlreader.GetValueAsString("filemenu", "pincode", string.Empty));
+ 
+         string strDefault = xmlreader.GetValueAsString("music", "default", string.Empty);
+-        _virtualDirectory.Clear();
++/*        _virtualDirectory.Clear();
+         foreach (Share share in _shareList)
+         {
+           if (!string.IsNullOrEmpty(share.Name))
+@@ -268,6 +268,7 @@ namespace MediaPortal.GUI.Music
+             break;
+           }
+         }
++ */
+         if (xmlreader.GetValueAsBool("music", "rememberlastfolder", false))
+         {
+           string lastFolder = xmlreader.GetValueAsString("music", "lastfolder", currentFolder);
